@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import BrandDetails from './BrandDetails';
-import ChainChampLogo from './ChainChampLogo.png';
+import ChainChampLogo from './ChainChampLogo-transparent.png';
 import './App.css';
 import { SignIn, PortkeyProvider, getChain} from "@portkey/did-ui-react";
 import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
