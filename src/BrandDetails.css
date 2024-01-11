@@ -1,0 +1,143 @@
+.brand-details {
+  background: #fff; /* White background for the card */
+  width: 80%; /* Adjust the width as needed for larger screens */
+  max-width: 900px; /* Maximum width of the card */
+  margin: auto; /* Center the card horizontally */
+  margin-top: 20px;
+  padding: 2em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 10px; /* Rounded corners for the card */
+}
+
+/* Styling for the brand header */
+.brand-header {
+  text-align: center;
+  font-size: 1.5em; /* Larger font size for desktop */
+  margin-bottom: 10px;
+}
+
+.points-summary {
+  background-color: #e0ffe0; /* Light green background */
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.hi-user {
+  margin-bottom: 10px;
+}
+
+.wallet-balance {
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: 480;
+}
+
+.recent-points {
+    color: #009900; /* Darker green text for recent points */
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.transaction-history {
+  background-color: #f7f7f7; /* Light grey background */
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.transaction-history-title {
+  font-size: 1.5em
+}
+
+.transaction-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none; /* Removes default list styling if you use <ul> */
+    max-height: 25em; /* Set a max-height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.06em;
+  border-radius: 1px solid #eaeaea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: box-shadow 0.3s ease;
+  padding: 10px 0;
+}
+
+.positive {
+  color: #009900; /* Darker green text for positive points */
+}
+
+.negative {
+  color: #ff0000; /* Red text for negative points */
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.wallet-button, .button {
+    padding: 12px 25px; /* Larger padding for bigger buttons */
+    margin-top: 10px; /* Space above the 'Go to Wallet' button */
+    font-size: 1em; /* Adjust the font size as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth background color transition */
+  }
+  
+  .wallet-button {
+    background-color: #4CAF50; /* Green color for the 'Go to Wallet' button */
+    color: white;
+  }
+  
+  .wallet-button:hover {
+    background-color: #367c39; /* Darker green on hover */
+  }
+  
+  .button.view-offers {
+    background-color: #00d2ff; /* Bootstrap primary blue */
+    color: black;
+    font-weight: 500;
+  }
+  
+  .button.view-rewards {
+    background-color: #007bff; /* Bootstrap success green */
+    color: white;
+    font-weight: bold;
+  }
+
+  .go-back-button {
+    padding: 10px 25px; /* Slightly bigger padding */
+    background-color: #ccc; /* A neutral color for the button */
+    color: #333; /* Dark text color for visibility */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+    font-size: 1em; /* Slightly bigger font size */
+    margin-bottom: 0.5em; /* Space below the button */
+  }
+  
+  .go-back-button:hover {
+    background-color: #bbb; /* A slightly darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow on hover for a 'lifted' effect */
+  }
+  
+  .button:hover {
+    opacity: 0.9; /* Slight transparency on hover */
+  }
+  
