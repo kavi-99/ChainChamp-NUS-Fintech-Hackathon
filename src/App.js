@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import EnterpriseDashboard from './EnterpriseDashboard';
 import BrandDetails from './BrandDetails';
 import ChainChampLogo from './ChainChampLogo-transparent.png';
 import './App.css';
@@ -14,6 +15,7 @@ import { UserContext } from './usercontext.js';
 function App() {
 
   const [signInMethod, setSignInMethod] = useState(null);
+  const [selected, setSelected] = useState(null)
   const [user, setUser] = useState(null);
   const ref = useRef();
   
@@ -22,17 +24,25 @@ function App() {
 
   const handleSignInEnterprise = () => {
     alert('Sign in as Enterprise clicked!');
-    setSignInMethod('Enterprise');
+    setSelected('Enterprise');
+    ref.current.setOpen(true);
+    // setSignInMethod('Enterprise');
     // Additional logic for signing in as Enterprise can be added here
   };
 
   const handleSignInCustomer = () => {
     alert('Sign in as Customer clicked!');
+    setSelected('Customer');
     ref.current.setOpen(true);
   };
 
   const onFinish = async (result) => {
-    setSignInMethod('Customer');
+    if(selected === 'Customer'){
+      setSignInMethod('Customer');
+    }
+    else{
+      setSignInMethod('Enterprise');
+    }
     setUser(result);
     console.log(result)
     console.log(user)
@@ -52,14 +62,15 @@ function App() {
         {signInMethod === 'Enterprise' && (
           <>
             {/* Navigation Links */}
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            {/* <Link to="/">Home</Link>
+            <Link to="/about">About</Link> */}
 
             {/* Routes */}
-            <Routes>
+            {/* <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-            </Routes>
+            </Routes> */}
+            <EnterpriseDashboard/>
           </>
         )}
         {signInMethod === 'Customer' && (
