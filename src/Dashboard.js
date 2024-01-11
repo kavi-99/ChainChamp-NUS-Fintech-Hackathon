@@ -92,15 +92,16 @@ const Dashboard = () => {
 
   const handlePurchaseIdSubmit = async () => {
     // TODO validate purchase id
-    console.log(`User entered purchase code: ${purchaseId}`);
     // Reset purchase code input after submission
     const brandName = getBrandNameById(purchaseId, brands);
+
     console.log("brand", brandName)
 
     if (brandName) {
       retrieveBrandWalletAccount(brandName);
+      alert(`Congratulations! You have earned loyalty points from ${brandName}`);
     } else {
-      console.log('Brand not found for this ID');
+      alert('Brand not found for this ID');
     }
     
     var merchantWalletInfo = ' '
