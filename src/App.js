@@ -25,8 +25,9 @@ function App() {
   const handleSignInEnterprise = () => {
     alert('Sign in as Enterprise clicked!');
     setSelected('Enterprise');
+    setSignInMethod('Enterprise')
     ref.current.setOpen(true);
-    // setSignInMethod('Enterprise');
+    //;
     // Additional logic for signing in as Enterprise can be added here
   };
 

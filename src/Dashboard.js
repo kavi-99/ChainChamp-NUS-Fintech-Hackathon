@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import './Dashboard.css'; // Your CSS file for styling
 import { SignIn, PortkeyProvider, getChain} from "@portkey/did-ui-react";
 import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
+import Balance from './Balance.tsx'
+import { MethodsBase } from "@portkey/provider-types";
+import detectProvider from "@portkey/detect-provider";
 
 // Mock data for brands [in reality this could some from a database of brands that are working with us]
 const brands = [
@@ -44,8 +47,28 @@ function retrieveBrandWalletAccount(brandName) {
   // Insert logic to actually retrieve the wallet account
 }
 
-const Dashboard = () => {
+const provider = await detectProvider();
 
+const accounts = await provider.request({method:"requestAccounts"})
+// {AELF:["AELF_Address"],tDVV:["tDVV_Address"]}
+
+// get chain
+const chain = await provider.getChain('AELF');
+
+// status
+const status =  await chain.getChainStatus();
+console.log("Status:  ", status);
+
+// get contract
+const tokenC = await chain.getContract('token contract address');
+
+// Transfer
+// const req = await tokenC.callSendMethod('Transfer',accounts.AELF[0],{amount:100000,symbol:"ELF",to:'xxx'})
+
+// GetBalance
+const req = await tokenC.callViewMethod('GetBalance',{symbol: 'ELF',owner: "owner"})
+
+const Dashboard = () => {  
   const user = useContext(UserContext);
   console.log('user', user)
   const [purchaseId, setPurchaseId] = useState('');
@@ -139,6 +162,8 @@ const Dashboard = () => {
     setPurchaseId('');
 
   };
+
+  if (!provider) return <>Provider not found.</>;
 
   return (
     <div className="dashboard">

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@portkey/detect-provider": "^2.0.0-alpha.2",
     "@portkey/did-ui-react": "^1.5.2-alpha.3",
+    "@portkey/provider-types": "^2.0.0-alpha.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
