@@ -47,27 +47,6 @@ function retrieveBrandWalletAccount(brandName) {
   // Insert logic to actually retrieve the wallet account
 }
 
-const provider = await detectProvider();
-
-const accounts = await provider.request({method:"requestAccounts"})
-// {AELF:["AELF_Address"],tDVV:["tDVV_Address"]}
-
-// get chain
-const chain = await provider.getChain('AELF');
-
-// status
-const status =  await chain.getChainStatus();
-console.log("Status:  ", status);
-
-// get contract
-const tokenC = await chain.getContract('token contract address');
-
-// Transfer
-// const req = await tokenC.callSendMethod('Transfer',accounts.AELF[0],{amount:100000,symbol:"ELF",to:'xxx'})
-
-// GetBalance
-const req = await tokenC.callViewMethod('GetBalance',{symbol: 'ELF',owner: "owner"})
-
 const Dashboard = () => {  
   const user = useContext(UserContext);
   console.log('user', user)
@@ -83,6 +62,36 @@ const Dashboard = () => {
       navigate(`/brand/${brand.name}`, { state: { balance: balance } });
       // Actual navigation logic would go here
   };
+
+  useEffect(() => {
+    const providerBalance = async () => {
+      const provider = await detectProvider();
+
+      const accounts = await provider.request({method:"requestAccounts"})
+      // {AELF:["AELF_Address"],tDVV:["tDVV_Address"]}
+
+      // get chain
+      const chain = await provider.getChain('AELF');
+
+      // status
+      const status =  await chain.getChainStatus();
+      console.log("Status:  ", status);
+
+      // get contract
+      const info = await getChain('AELF');
+      const tokenContractAddress = info?.defaultToken.address;
+      const tokenC = await chain.getContract(tokenContractAddress);
+
+      // Transfer
+      // const req = await tokenC.callSendMethod('Transfer',accounts.AELF[0],{amount:100000,symbol:"ELF",to:'xxx'})
+
+      // GetBalance
+      const req = await tokenC.callViewMethod('GetBalance',{symbol: 'ELF',owner: "owner"})
+      console.log(req)
+    }
+
+    providerBalance();
+  })
 
   useEffect(() => {
     // This function should be defined to get the balance from the blockchain
@@ -162,8 +171,6 @@ const Dashboard = () => {
     setPurchaseId('');
 
   };
-
-  if (!provider) return <>Provider not found.</>;
 
   return (
     <div className="dashboard">
