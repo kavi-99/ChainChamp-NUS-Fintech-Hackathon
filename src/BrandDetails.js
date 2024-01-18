@@ -84,7 +84,7 @@ const BrandDetails = () => {
         retrieveBrandWalletAccount(brandName);
         alert(`Congratulations! You have earned loyalty tokens from ${brandName}`);
       } else if (productId) {
-        alert('Tokens submitted! Visit our site to view offers for your tokens!')
+        alert('Tokens submitted! Visit our site to receive your product!')
       }
       else {
         alert('Brand not found for this ID');

@@ -28,7 +28,6 @@ function App() {
     alert('Sign in as Enterprise clicked!');
     setSelected('Enterprise');
     ref.current.setOpen(true);
-    setSignInMethod('Enterprise');
 
 
 
