@@ -35,23 +35,18 @@ const brands = [
   // Add more brands as needed
 ];
 
-function getBrandNameById(brandId, brands) {
-  const brand = brands.find(brand => brand.code === brandId);
-  return brand ? brand.name : null;
-}
-
-// Assuming you have a function to retrieve the wallet account for a brand
-function retrieveBrandWalletAccount(brandName) {
-  // Placeholder logic
-  console.log(`Retrieving wallet account for ${brandName}`);
-  // Insert logic to actually retrieve the wallet account
-}
-
 const Dashboard = () => {  
   const user = useContext(UserContext);
   console.log('user', user)
-  const [purchaseId, setPurchaseId] = useState('');
   const [balance, setBalance] = useState(null);
+  const [amt, setAmt] = useState('0');
+  const [Addr, setAddr] = useState('');
+  const [message, setMessage] = useState('Gift/Transfer Message: ');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
 
   let navigate = useNavigate();
 
@@ -63,35 +58,35 @@ const Dashboard = () => {
       // Actual navigation logic would go here
   };
 
-  useEffect(() => {
-    const providerBalance = async () => {
-      const provider = await detectProvider();
+  // useEffect(() => {
+  //   const providerBalance = async () => {
+  //     const provider = await detectProvider();
 
-      const accounts = await provider.request({method:"requestAccounts"})
-      // {AELF:["AELF_Address"],tDVV:["tDVV_Address"]}
+  //     const accounts = await provider.request({method:"requestAccounts"})
+  //     // {AELF:["AELF_Address"],tDVV:["tDVV_Address"]}
 
-      // get chain
-      const chain = await provider.getChain('AELF');
+  //     // get chain
+  //     const chain = await provider.getChain('AELF');
 
-      // status
-      const status =  await chain.getChainStatus();
-      console.log("Status:  ", status);
+  //     // status
+  //     const status =  await chain.getChainStatus();
+  //     console.log("Status:  ", status);
 
-      // get contract
-      const info = await getChain('AELF');
-      const tokenContractAddress = info?.defaultToken.address;
-      const tokenC = await chain.getContract(tokenContractAddress);
+  //     // get contract
+  //     const info = await getChain('AELF');
+  //     const tokenContractAddress = info?.defaultToken.address;
+  //     const tokenC = await chain.getContract('token contract address');
 
-      // Transfer
-      // const req = await tokenC.callSendMethod('Transfer',accounts.AELF[0],{amount:100000,symbol:"ELF",to:'xxx'})
+  //     // Transfer
+  //     // const req = await tokenC.callSendMethod('Transfer',accounts.AELF[0],{amount:100000,symbol:"ELF",to:'xxx'})
 
-      // GetBalance
-      const req = await tokenC.callViewMethod('GetBalance',{symbol: 'ELF',owner: "owner"})
-      console.log(req)
-    }
+  //     // GetBalance
+  //     const req = await tokenC.callViewMethod('GetBalance',{symbol: 'ELF',owner: "owner"})
+  //     console.log(req)
+  //   }
 
-    providerBalance();
-  })
+  //   providerBalance();
+  // })
 
   useEffect(() => {
     // This function should be defined to get the balance from the blockchain
@@ -122,20 +117,12 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  const handlePurchaseIdSubmit = async () => {
+  // if (!provider) return <>Provider not found.</>;
+
+  const handleSubmit = async () => {
     // TODO validate purchase id
     // Reset purchase code input after submission
-    const brandName = getBrandNameById(purchaseId, brands);
-
-    console.log("brand", brandName)
-
-    if (brandName) {
-      retrieveBrandWalletAccount(brandName);
-      alert(`Congratulations! You have earned loyalty points from ${brandName}`);
-    } else {
-      alert('Brand not found for this ID');
-    }
-    
+    console.log("handle submit")
     var merchantWalletInfo = ' '
     
     const info = await getChain('AELF');
@@ -161,16 +148,16 @@ const Dashboard = () => {
 
     const transferResult = await contract.callSendMethod("Transfer", "2JEr8cnTn11cqHz8vrQRexFgN7hCnsaBc7LmMofEXqRKARQCHR", {
       symbol: 'ELF',
-      to: user.caInfo.caAddress,
-      amount: '1',
-      memo: 'test1'
+      to: Addr,
+      amount: amt,
+      memo: message
     })
     console.log("transfer result")
     console.log(transferResult)
-
-    setPurchaseId('');
+    togglePopup()
 
   };
+
 
   return (
     <div className="dashboard">
@@ -180,16 +167,9 @@ const Dashboard = () => {
             <p>Welcome to your dashboard,</p>
             <p>Access all your favourite brands in one stop!</p>
           </div>
-          <div className="purchase-id-input">
-            <p>Have you made any recent purchases? Enter your purchase code to redeem your tokens!</p>
-            <input 
-              type="text" 
-              value={purchaseId}
-              onChange={(e) => setPurchaseId(e.target.value)}
-              placeholder="Enter purchase code"
-            />
-            <button onClick={handlePurchaseIdSubmit}>Submit</button>
-          </div>`
+          <div className='gift-tokens'>
+            <button onClick={togglePopup}>Click Here to Gift/Transfer Tokens!</button>
+          </div>
       </div>
       <div className="brand-grid">
         {brands.map((brand, index) => (
@@ -204,6 +184,40 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
+
+      {isPopupOpen && (
+        <div className="popup-container">
+          <div className="popup">
+            <div className="popup-header">
+              <h2>Gift/Transfer Tokens</h2>
+              <button onClick={togglePopup} className="close-popup">✕</button>
+            </div>
+            {/* Your form elements go here */}
+            <form className="popup-form" onSubmit={handleSubmit}>
+              {/* Your input fields */}
+              <input 
+                type="text" 
+                value={amt}
+                onChange={(e) => setAmt(e.target.value)}
+                placeholder="Amount"
+              />
+              <input 
+                type="text" 
+                value={Addr}
+                onChange={(e) => setAddr(e.target.value)}
+                placeholder="Recipient Wallet Address"
+              />
+              <input 
+                type="text" 
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Message"
+              />
+              <button type="button" onClick={handleSubmit}>Submit</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

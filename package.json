@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@canvasjs/react-charts": "^1.0.0",
     "@portkey/detect-provider": "^2.0.0-alpha.2",
     "@portkey/did-ui-react": "^1.5.2-alpha.3",
     "@portkey/provider-types": "^2.0.0-alpha.2",

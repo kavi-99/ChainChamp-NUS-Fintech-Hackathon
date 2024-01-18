@@ -1,29 +1,82 @@
 import React, { useEffect, useState } from 'react';
-// import Chart from 'chart.js/auto';
+import CanvasJSReact from '@canvasjs/react-charts';
 
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const YourComponent = () => {
-  const [data, setData] = useState(null);
+const YourComponent = (address) => {
+  const [dataSetFrom, setDataPointsFrom] = useState([]);
+  const [dataSetTo, setDataPointsTo] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const pageSize = 10; // Set your desired page size
-        const pageNum = 1; // Set your desired page number
-        const address = '2JEr8cnTn11cqHz8vrQRexFgN7hCnsaBc7LmMofEXqRKARQCHR'; // Replace with the actual address
+        const pageSize = 100;
+        const pageNum = 1;
+        const address = '2JEr8cnTn11cqHz8vrQRexFgN7hCnsaBc7LmMofEXqRKARQCHR';
 
         const apiUrl = `/list?pageSize=${pageSize}&pageNum=${pageNum}&address=${address}`;
 
-        const response = await fetch(apiUrl); //json data
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
 
         const responseData = await response.json();
-        console.log(responseData);
-        setData(responseData);
+        console.log("response");
+        console.log(responseData)
+
+        // Filter data to include only transactions where the specified address is in the "from" field
+        const filteredDataFrom = responseData.data.list.filter(
+          (item) => item.from === address
+        );
+
+        // Filter data to include only transactions where the specified address is in the "to" field
+        const filteredDataTo = responseData.data.list.filter(
+          (item) => item.to === address
+        );
+
+        // Group filtered data by date and calculate total amount for each date for "from" transactions
+        const groupedDataFrom = filteredDataFrom.reduce((acc, item) => {
+          const date = new Date(item.time).toISOString().split('T')[0];
+
+          if (!acc[date]) {
+            acc[date] = 0;
+          }
+
+          acc[date] += parseFloat(item.amount);
+          return acc;
+        }, {});
+
+        // Group filtered data by date and calculate total amount for each date for "to" transactions
+        const groupedDataTo = filteredDataTo.reduce((acc, item) => {
+          const date = new Date(item.time).toISOString().split('T')[0];
+
+          if (!acc[date]) {
+            acc[date] = 0;
+          }
+
+          acc[date] += parseFloat(item.amount);
+          return acc;
+        }, {});
+
+        // Format data into dataPoints array for "from" transactions
+        const formattedDataPointsFrom = Object.keys(groupedDataFrom).map(
+          (date) => ({
+            x: new Date(date),
+            y: groupedDataFrom[date],
+          })
+        );
+
+        // Format data into dataPoints array for "to" transactions
+        const formattedDataPointsTo = Object.keys(groupedDataTo).map((date) => ({
+          x: new Date(date),
+          y: groupedDataTo[date],
+        }));
+
+        setDataPointsFrom(formattedDataPointsFrom);
+        setDataPointsTo(formattedDataPointsTo);
       } catch (error) {
         setError(error.message);
       }
@@ -32,97 +85,83 @@ const YourComponent = () => {
     fetchData();
   }, []); // Run the effect only once on component mount
 
-  // const transactions = data.data.list;
-  // console.log(data.data.list);
-
-  // const parseDate = (isoDate) => {
-  //   const date = new Date(isoDate);
-  //   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  // };
-
-  // const tokensPerDay = transactions.reduce((acc, transaction) => {
-  //   const date = parseDate(transaction.time);
-  //   const amount = parseFloat(transaction.amount);
+  const optionsFrom = {
+    animationEnabled: true,
+    exportEnabled: true,
+    theme: 'light2',
+    title: {
+      text: 'Tokens issued',
+    },
+    axisY: {
+      title: 'Tokens (Elf)',
+      suffix: '',
+    },
+    axisX: {
+      title: 'Date',
+      prefix: '',
+      interval: 0,
+    },
+    width: 700, // Set the width of the chart
+    height: 500, // Set the height of the chart
+    data: [
+      {
+        type: 'line',
+        showInLegend: true,
+        name: 'Tokens Issued',
+        toolTipContent: 'Date: {x}, Tokens: {y}',
+        dataPoints: dataSetFrom,
+      },
+    ],
+  };
   
-  //   if (!acc[date]) {
-  //     acc[date] = {
-  //       issued: 0,
-  //       received: 0,
-  //       transactionsCount: 0
-  //     };
-  //   }
+  const optionsTo = {
+    animationEnabled: true,
+    exportEnabled: true,
+    theme: 'light2',
+    title: {
+      text: 'Tokens Redeemed',
+    },
+    axisY: {
+      title: 'Tokens (Elf)',
+      suffix: '',
+    },
+    axisX: {
+      title: 'Date',
+      prefix: '',
+      interval: 0,
+    },
+    width: 700, // Set the width of the chart
+    height: 500, // Set the height of the chart
+    data: [
+      {
+        type: 'line',
+        showInLegend: true,
+        name: 'Tokens Redeemed',
+        toolTipContent: 'Date: {x}, Tokens: {y}',
+        dataPoints: dataSetTo,
+      },
+    ],
+  };
   
-  //   if (transaction.action === 'Transferred') {
-  //     acc[date].issued += amount;
-  //   } else if (transaction.action === 'Received') {
-  //     acc[date].received += amount;
-  //   }
-  //   acc[date].transactionsCount += 1;
-  
-  //   return acc;
-  // }, {});
-
-  // console.log(tokensPerDay);
-
-  // const [chart, setChart] = useState(null);
-  
-  // // Destroy chart on unmount
-  // useEffect(() => {
-  //   return () => {
-  //     if (chart) {
-  //       chart.destroy();
-  //     }
-  //   };
-  // }, [chart]);
-
-  // // useEffect to create chart
-  // useEffect(() => {
-  //   if (data) {
-  //     const ctx = document.getElementById('myChart').getContext('2d');
-  //     const chartInstance = new Chart(ctx, {
-  //       type: 'bar',
-  //       data: {
-  //         labels: Object.keys(tokensPerDay),
-  //         datasets: [{
-  //           label: 'Tokens Issued',
-  //           data: Object.values(tokensPerDay).map(day => day.issued),
-  //           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-  //           borderColor: 'rgba(255, 99, 132, 1)',
-  //           borderWidth: 1
-  //         },
-  //         {
-  //           label: 'Tokens Received',
-  //           data: Object.values(tokensPerDay).map(day => day.received),
-  //           backgroundColor: 'rgba(54, 162, 235, 0.2)',
-  //           borderColor: 'rgba(54, 162, 235, 1)',
-  //           borderWidth: 1
-  //         }]
-  //       },
-  //       options: {
-  //         scales: {
-  //           y: {
-  //             beginAtZero: true
-  //           }
-  //         }
-  //       }
-  //     });
-
-  //     setChart(chartInstance);
-  //   }
-  // }, [data]); // Rerun effect when data changes
-
-
   return (
-    <div>
-      {data && (
-        <div>
-          {/* Render your data here */}
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )}
-      {error && <div>Error: {error}</div>}
+    <div className="container">
+    <div className="chart-container">
+      <div className="chart">
+        <CanvasJSChart options={optionsFrom} />
+        <h3  style={{ marginBottom: '40px' }}>
+          Note: The more the number of tokens issued per day, the more the customers have been spending and participating in the loyalty program.
+        </h3>
+      </div>
+      <div className="chart">
+        <CanvasJSChart options={optionsTo} />
+        <h3  style={{ marginBottom: '0px' }}>
+          Note: This Chart tracks the tokens redeemed per day. The more the number of tokens redeemed per day, the more the customers have been spending their tokens at the merchant's shop.
+        </h3>
+      </div>
+    </div>
     </div>
   );
+
 };
 
 export default YourComponent;

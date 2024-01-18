@@ -1,0 +1,66 @@
+/* For Rank Table */ 
+
+body {
+    margin: 0;
+  }
+  
+  .ranking-table-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25vw; /* 25% of the viewport width */
+    height: 100vh; /* 100% of the viewport height */
+    margin: 20px;
+    text-align: center;
+  }
+  
+  h2 {
+    color: #3498db; /* Blue color for the heading */
+    text-decoration: underline; /* Underline the title */
+    white-space: nowrap; /* Prevent title from wrapping */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed content */
+    margin: 0;
+    padding: 16px;
+    font-size: 18px;
+  }
+  
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .ranking-table th,
+  .ranking-table td {
+    border: 1px solid #3498db; /* Blue border color */
+    padding: 12px;
+    color: #333; /* Text color */
+  }
+  
+  .ranking-table th {
+    background-color: #3498db; /* Blue background color for header */
+    color: #fff; /* White text color for header */
+  }
+  
+  .ranking-table td {
+    text-align: center;
+  }
+  
+  
+  
+  /* Highlight the top 3 rows */
+  .ranking-table tr.top-three {
+    background-color: #f9ca24; /* Highlight color for the top 3 */
+    animation: fadeIn 1s ease-in-out; /* Animation for highlighting */
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      background-color: #f9ca24; /* Initial background color */
+    }
+    to {
+      background-color: #fff; /* Final background color */
+    }
+  }
