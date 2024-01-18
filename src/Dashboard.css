@@ -1,106 +1,176 @@
 .dashboard {
-    padding: 20px;
-    text-align: center;
-  }
+  padding: 20px;
+  text-align: center;
+}
 
-  .dashboard-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .dashboard-title {
-    margin-top: 15px;
-    font-size: 2.3rem;
-    font-weight: bold;
-  }
-  
-  .dashboard-subtitle {
-    margin-top: 2px;
-    font-size: 1.3rem;
-    color: #555;
-    padding: 10px;
-  }
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
 
-  .purchase-id-input {
-    text-align: center;
-    margin-top: 10px;
-  }
-  
-  .purchase-id-input p {
-    margin-bottom: 10px;
-    color: #333; 
-    font-size: 15.5px;
-  }
-  
-  .purchase-id-input input {
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc; /* A light grey border */
-    border-radius: 5px;
-  }
-  
-  .purchase-id-input button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Bootstrap primary blue */
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .purchase-id-input button:hover {
-    background-color: #0056b3; /* A darker shade of blue for hover */
-  }
-  
+.dashboard-title {
+  margin-top: 15px;
+  font-size: 2.3rem;
+  font-weight: bold;
+}
 
-  .brand-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Increased min size to 200px */
-    gap: 30px;
-    padding: 40px;
-    max-height: 70vh; /* Adjust based on your layout */
-    overflow-y: auto; /* Enables vertical scrolling */
-  }
-  
-  .brand-card {
-    cursor: pointer;
-    display: flex; /* Use flex to center content */
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    border-radius: 10px;
-    padding: 40px; /* More padding for larger content area */
-    color: white;
-    font-size: 1.2rem; /* Larger text within the card */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
-    transition: transform 0.3s ease;
-    height: 200px;
-  }
-  
-  .brand-card:hover {
-    transform: translateY(-10px); /* Larger hover effect */
-  }
-  
-  
-  /* .brand-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .brand-card {
-    cursor: pointer;
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .brand-card:hover {
-    transform: translateY(-5px);
-  }
-   */
+.dashboard-subtitle {
+  margin-top: 2px;
+  font-size: 1.3rem;
+  color: #555;
+  padding: 10px;
+}
+
+.gift-tokens button {
+  padding: 16px 40px; /* Increased padding */
+  font-size: 1.2em; /* Increased font size */
+  font-weight: bold;
+  background-color: #ff69c2;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative; /* Keeps the button in the normal flow but allows for slight adjustments */
+  min-width: 100px; /* Optional: Ensures a minimum width */
+  min-height: 50px; /* Optional: Ensures a minimum height */
+  /* Adjust the position as needed without affecting the overall layout */
+  margin-top: 10px;
+}
+
+.gift-tokens button:hover {
+  background-color: #ff85c8; /* A slightly lighter pink on hover */
+  transform: scale(1.05); /* Scales up the button a bit on hover */
+}
+
+.gift-tokens button:active {
+  transform: scale(1.0); /* Scales down the button when clicked */
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-header p {
+  font-size: 1.3em; /* Typically h2 size, adjust as needed */
+  font-weight: 500px; /* h2 is usually bold */
+  margin: 0; /* Reset default p margin */
+  color: black; /* Inherit color from parent */
+  text-decoration: none; /* Ensures no underline */
+}
+
+.close-popup {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.popup-form button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}  
+
+.popup-form button:hover {
+  transform: scale(1.02); /* Scales up the button a bit on hover */
+}
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Increased min size to 200px */
+  gap: 30px;
+  padding: 40px;
+  max-height: 70vh; /* Adjust based on your layout */
+  overflow-y: auto; /* Enables vertical scrolling */
+}
+
+.brand-card {
+  cursor: pointer;
+  display: flex; /* Use flex to center content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  border-radius: 10px;
+  padding: 40px; /* More padding for larger content area */
+  color: white;
+  text-decoration: none; /* Removes underline */
+  /* color: black; Changes text color to black */
+  font-size: 1.2rem; /* Larger text within the card */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
+  transition: transform 0.3s ease;
+  height: 200px;
+}
+
+.brand-card p {
+  font-size: 1.5em; /* Typically h2 size, adjust as needed */
+  font-weight: 500px; /* h2 is usually bold */
+  margin: 0; /* Reset default p margin */
+  color: black; /* Inherit color from parent */
+  text-decoration: none; /* Ensures no underline */
+}
+
+.brand-card:hover {
+  transform: translateY(-10px); /* Larger hover effect */
+}
+
+
+/* .brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.brand-card {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.brand-card:hover {
+  transform: translateY(-5px);
+}
+ */

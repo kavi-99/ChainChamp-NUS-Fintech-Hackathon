@@ -1,3 +1,5 @@
+/*General*/
+
 .App {
   text-align: center;
 }
@@ -86,3 +88,33 @@
   margin-top: 15px;
   cursor: pointer;
 }
+
+
+
+
+
+
+/* For 2 Charts Table */ 
+.chart-container {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  flex-direction: column; /* Stack charts vertically */
+  align-items: center;
+  padding: 20px;
+  
+}
+
+.chart {
+  justify-content: flex-end;
+  width: 100%; /* Each chart takes the full width of the container */
+  margin-bottom: 20px; /* Add some margin between charts */
+}
+
+.container {
+  display: flex;
+  justify-content: flex-end; /* Create space between the left and right sides */
+  padding: 20px;padding-right: 100px;
+}
+
+

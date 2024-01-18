@@ -1,3 +1,22 @@
+.brand-details-container {
+  display: flex; /* Aligns children side by side */
+  justify-content: center; /* Centers children horizontally */
+  align-items: flex-start; /* Aligns children to the top */
+  gap: 20px; /* Adds space between children */
+  background: #fff; /* White background for the card */
+  width: 98%; /* Adjust the width as needed for larger screens */
+  margin: auto; /* Center the card horizontally */
+  margin-top: 20px;
+  padding: 2em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 10px; /* Rounded corners for the card */
+}
+
+.brand-details, .purchase-id-input {
+  flex: 1; /* Both children will take up equal space */
+  padding: 1em; /* Adds some padding around the content */
+}
+
 .brand-details {
   background: #fff; /* White background for the card */
   width: 80%; /* Adjust the width as needed for larger screens */
@@ -12,7 +31,7 @@
 /* Styling for the brand header */
 .brand-header {
   text-align: center;
-  font-size: 1.5em; /* Larger font size for desktop */
+  font-size: 1.7em; /* Larger font size for desktop */
   margin-bottom: 10px;
 }
 
@@ -25,6 +44,11 @@
 }
 
 .hi-user {
+  font-size: 1.4em; /* Typically h2 size, adjust as needed */
+  font-weight: 500px; /* h2 is usually bold */
+  margin: 0; /* Reset default p margin */
+  color: black; /* Inherit color from parent */
+  text-decoration: none; /* Ensures no underline */
   margin-bottom: 10px;
 }
 
@@ -80,6 +104,133 @@
 .negative {
   color: #ff0000; /* Red text for negative points */
 }
+
+.left-side {
+  background: #fff; /* White background for the card */
+    width: 45%; /* Adjust the width as needed for larger screens */
+    margin: auto; /* Center the card horizontally */
+    margin-top: 20px;
+    padding: 2em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 10px; /* Rounded corners for the card */
+}
+
+.purchase-id-input {
+    text-align: center;
+    margin-top: 10px;
+    background: #fff; /* White background for the card */
+    width: 80%; 
+    max-width: 900px;  
+    margin: auto; 
+    margin-top: 20px;
+    padding: 2em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+
+  }
+  
+  .purchase-id-input p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333; 
+    font-size: 15.5px;
+
+  }
+  
+  .purchase-id-input input {
+    padding: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc; /* A light grey border */
+    border-radius: 5px;
+  }
+
+  .purchase-form .form-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .purchase-form .form-field p {
+    margin: 0;
+    white-space: nowrap;
+  }
+  
+  .purchase-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .purchase-id-input button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+  }
+  
+  .purchase-id-input button:hover {
+    background-color: #0056b3;
+  }
+
+  .token-input {
+    text-align: center;
+    margin-top: 10px;
+    background: #fff; /* White background for the card */
+    margin-top: 20px;
+  }
+
+  .token-input button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+  }
+  
+  .token-input button:hover {
+    background-color: #0056b3;
+  }
+
+  /* .purchase-form .form-field {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    margin-bottom: 10px; 
+  }
+  
+  .purchase-form .form-field p {
+    margin: 0;
+    white-space: nowrap; 
+  }
+  
+  .purchase-form input {
+    border: 1px solid #ccc; 
+  }
+  
+  .purchase-id-input button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; 
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+  }
+  
+  .purchase-id-input button:hover {
+    background-color: #0056b3; 
+  } */
 
 .buttons-container {
   display: flex;

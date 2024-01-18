@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import EnterpriseDashboard from './EnterpriseDashboard';
 import BrandDetails from './BrandDetails';
-import ChainChampLogo from './ChainChampLogo-transparent.png';
-import './App.css';
+//import ChainChampLogo from './ChainChampLogo-transparent.png';
+import ChainChampLogo from './NewLogo.png';
 import { SignIn, PortkeyProvider, getChain} from "@portkey/did-ui-react";
 import { IPortkeyContract, getContractBasic } from '@portkey/contracts';
 import "@portkey/did-ui-react/dist/assets/index.css";
 import { UserContext } from './usercontext.js';
-
+import Rank from './rank';
+import Product from './product';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
   const [selected, setSelected] = useState(null)
   const [user, setUser] = useState(null);
   const ref = useRef();
+  const address = "2JEr8cnTn11cqHz8vrQRexFgN7hCnsaBc7LmMofEXqRKARQCHR";
   
   var fromOwner = '2JEr8cnTn11cqHz8vrQRexFgN7hCnsaBc7LmMofEXqRKARQCHR' //JueLin wallet
   var toReceipient = 'J3fNf2mHedV4YgG739qf74VF9NDthZRsmsnLknRspbPxzkZQR' //Anni wallet, replace with your wallet 
@@ -26,6 +28,10 @@ function App() {
     alert('Sign in as Enterprise clicked!');
     setSelected('Enterprise');
     ref.current.setOpen(true);
+    setSignInMethod('Enterprise');
+
+
+
     // setSignInMethod('Enterprise');
     // Additional logic for signing in as Enterprise can be added here
   };
@@ -33,7 +39,10 @@ function App() {
   const handleSignInCustomer = () => {
     alert('Sign in as Customer clicked!');
     setSelected('Customer');
+    // setSignInMethod('Customer');
+
     ref.current.setOpen(true);
+    // setSignInMethod('Customer');
   };
 
   const onFinish = async (result) => {
@@ -52,7 +61,20 @@ function App() {
     // })
     // console.log("balance")
     // console.log(balance)
+
+    // Pass the result to the EnterpriseDashboard component
+    updateEnterpriseDashboard(result);
   }
+
+      // Function to pass result to EnterpriseDashboard component
+    const updateEnterpriseDashboard = (result) => {
+      
+      setEnterpriseDashboardData(result.caInfo.caAddress);
+      
+    };
+
+    // State to store EnterpriseDashboard data
+    const [enterpriseDashboardData, setEnterpriseDashboardData] = useState(null);
 
   return (
    // <Dashboard/>
@@ -70,7 +92,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
             </Routes> */}
-            <EnterpriseDashboard/>
+            <Rank></Rank>
+            <EnterpriseDashboard passedData={enterpriseDashboardData}/>
+            <Product></Product>
           </>
         )}
         {signInMethod === 'Customer' && (

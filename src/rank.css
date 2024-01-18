@@ -1,0 +1,195 @@
+/* For Rank Table */ 
+
+body {
+    margin: 0;
+  }
+  
+  .ranking-table-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25vw; /* 25% of the viewport width */
+    height: 100vh; /* 100% of the viewport height */
+    margin: 20px;
+    text-align: center;
+  }
+  
+  h2 {
+    color: #3498db; /* Blue color for the heading */
+    text-decoration: underline; /* Underline the title */
+    white-space: nowrap; /* Prevent title from wrapping */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed content */
+    margin: 0;
+    padding: 16px;
+    font-size: 18px;
+  }
+  
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .ranking-table th,
+  .ranking-table td {
+    border: 1px solid #3498db; /* Blue border color */
+    padding: 12px;
+    color: #333; /* Text color */
+  }
+  
+  .ranking-table th {
+    background-color: #3498db; /* Blue background color for header */
+    color: #fff; /* White text color for header */
+  }
+  
+  .ranking-table td {
+    text-align: center;
+  }
+  
+  
+  
+  /* Highlight the top 3 rows */
+  .ranking-table tr.top-three {
+    background-color: #f9ca24; /* Highlight color for the top 3 */
+    animation: fadeIn 1s ease-in-out; /* Animation for highlighting */
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      background-color: #f9ca24; /* Initial background color */
+    }
+    to {
+      background-color: #fff; /* Final background color */
+    }
+  }
+
+  /* Styles for the popup overlay */
+#createTokenPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  display: flex;
+  /* justify-content: center;
+  align-items: center;
+  z-index: 1000; Ensure it's above all other elements */
+  justify-content: flex-start; /* Align to the left side */
+  align-items: center; /* Keep it centered vertically */
+  padding-left: 10%; /* Give some space from the left edge of the screen */
+  z-index: 1000; /* Ensure it's above all other elements */
+}
+
+/* Styles for the popup content box */
+.popup-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px; /* Adjust width as necessary */
+  text-align: center;
+}
+
+/* Styles for the popup heading */
+.popup-content h2 {
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+/* Styles for the popup text */
+.popup-content p {
+  color: #666;
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Styles for the input field */
+#tokenSymbol {
+  width: calc(100% - 40px); /* Full width minus padding */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* Styles for the confirm button */
+#confirmToken {
+  background-color: #5cb85c; /* Green color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+
+#confirmToken:hover {
+  background-color: #4cae4c; /* Darker green on hover */
+}
+
+/* Styles for the close button */
+.close-popup-button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+/* Styles for the create button */
+.create-button {
+  background-color: #337ab7; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 20px; /* More rounded corners */
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block; /* So it doesn't take full width */
+  margin-top: 20px; /* Spacing from the content above */
+}
+
+.create-button:hover {
+  background-color: #286090; /* Darker blue on hover */
+}
+
+/* Additional styles to make the button look like the provided image */
+.create-button {
+  padding: 10px 30px; /* Slightly larger padding */
+  border: 2px solid white; /* White border */
+  /* background-color: transparent; /* Transparent background 
+  color: white; White text */
+  font-weight: bold;
+  letter-spacing: 1px; /* Space out the letters a bit */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add some shadow for depth */
+}
+
+/* Change the button appearance when active */
+.create-button:active {
+  background-color: white; /* White background */
+  color: #337ab7; /* Blue text */
+  border-color: #337ab7; /* Blue border */
+}
+
+/* Responsive design: Make the popup more mobile-friendly */
+@media (max-width: 600px) {
+  .popup-content {
+    width: 80%;
+    padding: 20px;
+  }
+  #confirmToken {
+    padding: 10px 15px; /* Smaller padding on mobile */
+  }
+}
