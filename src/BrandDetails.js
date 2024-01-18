@@ -47,6 +47,8 @@ const BrandDetails = () => {
   console.log('user', user)
   const [purchaseId, setPurchaseId] = useState('');
   const [memotext, setMemotext] = useState('');
+  const [productId, setProductId] = useState('');
+  const [product, setProduct] = useState('');
    const { name } = useParams(); // Get brand name from URL params
    console.log(name)
    console.log(useLocation)
@@ -81,7 +83,10 @@ const BrandDetails = () => {
       if (brandName) {
         retrieveBrandWalletAccount(brandName);
         alert(`Congratulations! You have earned loyalty tokens from ${brandName}`);
-      } else {
+      } else if (productId) {
+        alert('Tokens submitted! Visit our site to view offers for your tokens!')
+      }
+      else {
         alert('Brand not found for this ID');
       }
       
@@ -191,8 +196,8 @@ const BrandDetails = () => {
         <p>Enter product to be purchased</p>
         <input 
           type="text" 
-          value={purchaseId}
-          onChange={(e) => setPurchaseId(e.target.value)}
+          value={product}
+          onChange={(e) => setProduct(e.target.value)}
           placeholder="e.g. coffee"
         />
       </div>
@@ -200,8 +205,8 @@ const BrandDetails = () => {
         <p>Enter product code</p>
         <input 
           type="text" 
-          value={memotext}
-          onChange={(e) => setMemotext(e.target.value)}
+          value={productId}
+          onChange={(e) => setProductId(e.target.value)}
           placeholder="e.g. 0ax2"
         />
       </div>
